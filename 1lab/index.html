@@ -11,17 +11,23 @@
   	</script>
 </head>
     <body>
+    	<h1>Погода</h1>
    		<form>
-   			<h1>Погода</h1>
-    		<p class="city">Город <input type="text" id="userCity" class="textbox"/></p>
+    		<p>Город <input type="text" id="user_city"/></p>
     		<input type="button" id="button" value="Найти" class="blue-button">
     	</form>
     	<div id="content"></div>
     </body>
 
     <script>
+
+    	
     	button.onclick = function() {
-		    var enteredCity = document.getElementById('userCity').value
+    		getWeather()
+    	} 
+
+    	function getWeather(){
+		    var enteredCity = document.getElementById('user_city').value
 		    var req = new XMLHttpRequest()
 		    req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + enteredCity + '&APPID=839cba68bbf9459f78ec72d97881a87f', false)
 		    req.send()
