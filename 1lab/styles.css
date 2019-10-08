@@ -1,5 +1,11 @@
 p {
-  color: #454545;
+  color: #095B90;
+}
+h3 {
+  color: #095B90;
+}
+h1 {
+  color: #095B90;
 }
 /* This is one of the most important mixins but also the most complicated - I usually use Colorzilla's gradient generator for it. Just Google it */
 .blue-gradient {
