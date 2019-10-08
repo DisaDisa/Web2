@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
+    <script id="text-template" type="text/x-handlebars-template">
+    	<h3>City: {{city_name}} </h3> 
+    	<h3>Temperature: {{temp}}</h3>
+    	<h3>Wind Speed: {{wind_speed}}</h3>
+    	<h3>Sky: {{sky}}</h3> 
+  	</script>
+</head>
+    <body>
+   		<form>
+   			<h1>Это похода?</h1>
+    		<p class="city">Город <input type="text" id="userCity" class="textbox"/></p>
+    		<input type="button" id="button" value="Найти" class="blue-button">
+    	</form>
+    	<div id="content"></div>
+    </body>
+
+    <script>
+    	button.onclick = function() {
+		    var enteredCity = document.getElementById('userCity').value
+		    var req = new XMLHttpRequest()
+		    req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + enteredCity + '&APPID=839cba68bbf9459f78ec72d97881a87f', false)
+		    req.send()
+		    if (req.status !== 200) {
+		        var errorMsg = "Error:" + req.status + ' ' + req.statusText
+		        alert(errorMsg)  
+		    } else {
+		        var response = JSON.parse(req.responseText);
+		        var data = {
+		            city: response.name,
+		            temp: (response.main.temp - 273.15).toFixed(2),
+		            wind_speed: response.wind.speed,
+		            sky: response.weather[0].description,
+		        }
+
+		        
+		       
+		        var source = document.getElementById("text-template").innerHTML;
+				var template = Handlebars.compile(source);
+
+
+				var data = {city_name: data.city, temp: data.temp, wind_speed: data.wind_speed, sky: data.sky};
+				var result = template(data);
+
+				document.getElementById('content').innerHTML = result
+		    }
+		}
+    </script>
+
+</html>
