@@ -1,14 +1,13 @@
 document.getElementById("form1")
         .addEventListener("submit", function (event) {
         event.preventDefault()
-        printWeather()
+        printWeather(getWeather())
 });
 
-function printWeather() {
+function printWeather(data) {
     var source = document.getElementById("text-template").innerHTML
     var template = Handlebars.compile(source)
 
-    var data = getWeather()
     if (isRealValue(data)) {
         var result = template(data)
         document.getElementById('content').innerHTML = result
