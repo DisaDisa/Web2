@@ -1,7 +1,8 @@
 document.getElementById("form1")
         .addEventListener("submit", function (event) {
         event.preventDefault()
-        printWeather(getWeather())
+        var data = getWeather(event.currentTarget[0].value)
+        printWeather(data)
 });
 
 function printWeather(data) {
@@ -27,11 +28,10 @@ function printError(req) {
 }
 
 function isRealValue(obj) {
-    return obj && obj !== 'null' && obj !== 'undefined';
+    return obj && obj !== null && obj !== undefined;
 }
 
-function getWeather(){
-    var enteredCity = document.getElementById('userCity').value
+function getWeather(enteredCity){
     var req = new XMLHttpRequest()
     req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + enteredCity + '&APPID=839cba68bbf9459f78ec72d97881a87f', false)
     req.send()
