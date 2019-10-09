@@ -4,60 +4,25 @@
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
     <script id="text-template" type="text/x-handlebars-template">
-    	<h3>City: {{city_name}} </h3> 
+    	<h3>City: {{city}} </h3> 
     	<h3>Temperature: {{temp}}</h3>
-    	<h3>Wind Speed: {{wind_speed}}</h3>
+    	<h3>Wind Speed: {{windSpeed}}</h3>
     	<h3>Sky: {{sky}}</h3> 
+  	</script>
+  	<script id="error-template" type="text/x-handlebars-template">
+    	<h3>Status: {{status}} </h3> 
+    	<h3> {{errorText}} </h3> 
   	</script>
 </head>
     <body>
-    	<div id = "form1">
-	   		<form>
-	   			<h1>Погода</h1>
-	    		<p>Город <input type="text" id="user_city"/></p>
-	    		<input type="submit" id="button" value="Найти" class="blue-button">
-	    	</form>
-    	</div>
+   		<form id = "form1">
+   			<h1>Погода</h1>
+    		<p>Город <input type="text" id="userCity"/></p>
+    		<input type="submit" id="button" value="Найти" class="blue-button">
+    	</form>
     	<div id="content"></div>
     </body>
 
-    <script>
-
-    	document.getElementById("form1")
-				.addEventListener("submit", function (event) {
-				event.preventDefault();
-				getWeather();
-		});
-
-    	function getWeather(){
-		    var enteredCity = document.getElementById('user_city').value
-		    var req = new XMLHttpRequest()
-		    req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + enteredCity + '&APPID=839cba68bbf9459f78ec72d97881a87f', false)
-		    req.send()
-		    if (req.status !== 200) {
-		        var errorMsg = "Error:" + req.status + ' ' + req.statusText
-		        alert(errorMsg)  
-		    } else {
-		        var response = JSON.parse(req.responseText);
-		        var data = {
-		            city: response.name,
-		            temp: (response.main.temp - 273.15).toFixed(2),
-		            wind_speed: response.wind.speed,
-		            sky: response.weather[0].description,
-		        }
-
-		        
-		       
-		        var source = document.getElementById("text-template").innerHTML;
-				var template = Handlebars.compile(source);
-
-
-				var data = {city_name: data.city, temp: data.temp, wind_speed: data.wind_speed, sky: data.sky};
-				var result = template(data);
-
-				document.getElementById('content').innerHTML = result
-		    }
-		}
-    </script>
+    <script src="./script.js"></script>
 
 </html>
